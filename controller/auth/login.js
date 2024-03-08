@@ -14,8 +14,7 @@ const loginHandler = async (req, res, next) => {
 
   const foundUser = await User.findOne({ email: validated.data.email });
   if (!foundUser || Object.keys(foundUser).length === 0)
-    return next(createCustomError('Email not found'));
-
+    return next(createCustomError('Email not found', 404));
   const match = await bcrypt.compare(
     validated.data.password,
     foundUser.password

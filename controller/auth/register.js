@@ -19,7 +19,7 @@ const registerHandler = async (req, res, next) => {
 
   const foundUser = await User.findOne({ email: validated.data.email });
   if (foundUser && foundUser.email === validated.data.email)
-    return next(createCustomError('Email already exists', 403));
+    return next(createCustomError('Email already exists', 409)); //conflict
 
   const hashedPassword = await bcrypt.hash(validated.data.password, 10);
   const token = await jwt.sign(
