@@ -15,7 +15,7 @@ const registerHandler = async (req, res, next) => {
     password,
   });
   if (!validated.success)
-    return next(createCustomError('invalid data format', 400));
+    return next(createCustomError('invalid data format', 403));
 
   const foundUser = await User.findOne({ email: validated.data.email });
   if (foundUser && foundUser.email === validated.data.email)
@@ -25,12 +25,12 @@ const registerHandler = async (req, res, next) => {
   const token = await jwt.sign(
     { email: validated.data.email },
     process.env.SECRET_TOKEN,
-    { expiresIn: '15s' }
+    { expiresIn: '5m' }
   );
   const refreshToken = await jwt.sign(
     { email: validated.data.email },
     process.env.SECRET_REFRESH_TOKEN,
-    { expiresIn: '30s' }
+    { expiresIn: '30m' }
   );
 
   const newUser = new User({

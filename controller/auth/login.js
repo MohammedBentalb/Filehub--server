@@ -24,12 +24,12 @@ const loginHandler = async (req, res, next) => {
   const token = await jwt.sign(
     { email: validated.data.email },
     process.env.SECRET_TOKEN,
-    { expiresIn: '15s' }
+    { expiresIn: '5m' }
   );
   const refreshToken = await jwt.sign(
     { email: validated.data.email },
     process.env.SECRET_REFRESH_TOKEN,
-    { expiresIn: '30s' }
+    { expiresIn: '30m' }
   );
 
   foundUser.refreshToken = refreshToken;
