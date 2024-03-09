@@ -14,6 +14,6 @@ const getSingleFileHandler = async (req, res, next) => {
   if (!foundFile || Object.keys(foundFile).length === 0)
     return next(createCustomError('User not found', 404));
 
-  res.json({ author, fileId, foundFile });
+  res.json({ file: foundFile });
 };
 module.exports = getSingleFileHandler;
