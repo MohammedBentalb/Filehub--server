@@ -6,7 +6,6 @@ const User = require('../../models/Users');
 const refreshHandler = async (req, res, next) => {
   const token = req.cookies?.jwt;
   if (!token) return next(createCustomError('invalid token', 401));
-  console.log(token);
 
   const foundUser = await User.findOne({ refreshToken: token });
   if (!foundUser || Object.keys(foundUser).length === 0) return next(createCustomError('invalid token', 401));
