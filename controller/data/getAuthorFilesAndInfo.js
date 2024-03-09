@@ -8,7 +8,7 @@ const getAuthorFilesAndInfoHandler = async (req, res, next) => {
   if (!author || Object.keys(author).length === 0)
     return next(createCustomError('UnAuthorized', 401));
 
-  if (!authorId) return next(createCustomError('no id provided', 403));
+  if (!authorId) return next(createCustomError('No id provided', 403));
 
   const foundAuthor = await User.findOne({ _id: authorId });
   if (!foundAuthor || Object.keys(foundAuthor).length === 0)

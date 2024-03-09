@@ -16,7 +16,7 @@ const getAllFilesHandler = async (req, res, next) => {
     .skip(pagOptions.startIndex)
     .limit(pagOptions.limit)
     .sort({ author: 1 });
-  if (!files || files.length === 0) return res.status(204).json({ files: [] });
+  if (!files || files.length === 0) return res.status(200).json({ files: [] });
 
   const pagination = {
     totalPages: pagOptions.totalPages,
