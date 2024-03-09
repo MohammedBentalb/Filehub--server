@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors')
 const app = express();
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
@@ -9,8 +10,12 @@ const cookieParser = require('cookie-parser');
 const verificationHandler = require('./controller/routeProtection/verificationHandler');
 const FilePool = require('./models/Files');
 const asyncWrapper = require('./middleware/asyncWrapper');
+const corsOptions = require('./config/corsOptions');
 // parsing json
 app.use(express.json());
+
+// cors
+app.use(cors(corsOptions))
 
 // cookie parser middleware
 app.use(cookieParser());
