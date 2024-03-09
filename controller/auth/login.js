@@ -24,12 +24,12 @@ const loginHandler = async (req, res, next) => {
   const token = await jwt.sign(
     { email: validated.data.email },
     process.env.SECRET_TOKEN,
-    { expiresIn: '5m' }
+    { expiresIn: '10m' }
   );
   const refreshToken = await jwt.sign(
     { email: validated.data.email },
     process.env.SECRET_REFRESH_TOKEN,
-    { expiresIn: '30m' }
+    { expiresIn: '7d' }
   );
 
   foundUser.refreshToken = refreshToken;
@@ -39,7 +39,7 @@ const loginHandler = async (req, res, next) => {
     httpOnly: true,
     secure: true,
     sameSite: 'Strict',
-    maxAge: 2 * 24 * 62 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   res.json({ token });
 };
