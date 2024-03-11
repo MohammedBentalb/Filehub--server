@@ -7,6 +7,9 @@ const usersSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     refreshToken: { type: String },
+    photoName: { type: String, required: true },
+    photoOriginalname: { type: String, required: true },
+    photoPath: { type: String, required: true },
   },
   { timestamps: true }
 );

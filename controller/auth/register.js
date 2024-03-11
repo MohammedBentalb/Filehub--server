@@ -4,9 +4,14 @@ const { registerSchema } = require('../../Schemas/authSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/Users');
+const fs = require('fs').promises;
 
 const registerHandler = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
+  const file = req.file;
+  if (!file || Object.keys(file) === 0) {
+    return next(createCustomError('invalid data', 401));
+  }
 
   const validated = registerSchema.safeParse({
     firstName,
@@ -14,8 +19,11 @@ const registerHandler = async (req, res, next) => {
     email,
     password,
   });
-  if (!validated.success)
+
+  if (!validated.success) {
+    await fs.unlink(file.path);
     return next(createCustomError('invalid data format', 403));
+  }
 
   const foundUser = await User.findOne({ email: validated.data.email });
   if (foundUser && foundUser.email === validated.data.email)
@@ -39,6 +47,9 @@ const registerHandler = async (req, res, next) => {
     email: validated.data.email,
     password: hashedPassword,
     refreshToken,
+    photoName: file.filename,
+    photoOriginalname: file.originalname,
+    photoPath: file.path,
   });
   await newUser.save();
 
