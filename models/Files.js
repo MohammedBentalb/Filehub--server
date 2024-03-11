@@ -9,6 +9,9 @@ const filesSchema = new Schema(
     downloadCounter: { type: Number, default: 0 },
     author: { type: String, required: true },
     authorId: { type: String, required: true },
+    caption: { type: String, required: true },
+    title: { type: String, required: true },
+    path: {type: String, required: true}
   },
   { timestamps: true }
 );

@@ -8,7 +8,7 @@ const asyncWrapper = require('../middleware/asyncWrapper');
 
 const multer = require('multer')
 
-const upload = multer({dest: 'uploads'})
+const upload = multer({dest: 'public/uploads'})
 
 route.get('/files', asyncWrapper(paginationOptions), asyncWrapper(getAllFilesHandler)); // route to get all files
 route.get('/files/:fileId', asyncWrapper(getSingleFileHandler)); // route to get a Single file
