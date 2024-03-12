@@ -41,7 +41,15 @@ const loginHandler = async (req, res, next) => {
     sameSite: 'Strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
-  res.json({ token });
+
+  const user = {
+    firstName: foundUser.firstName,
+    lastName: foundUser.lastName,
+    email: foundUser.email,
+    id: foundUser.id,
+    photoName: foundUser.photoName,
+  };
+  res.json({ token, user });
 };
 
 module.exports = loginHandler;

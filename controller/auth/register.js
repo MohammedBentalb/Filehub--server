@@ -59,6 +59,15 @@ const registerHandler = async (req, res, next) => {
     sameSite: 'Strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
-  res.json({ token });
+
+  const user = {
+    firstName: newUser.firstName,
+    lastName: newUser.lastName,
+    email: newUser.email,
+    id: newUser.id,
+    photoName: newUser.photoName,
+  };
+
+  res.json({ token, user });
 };
 module.exports = registerHandler;
